@@ -212,6 +212,20 @@ public class LL {
         }
         return true;
     }
+    
+// ll cycle exist
+    public static boolean iscycle(){
+        node slow=head;
+        node fast=head;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                return true;
+            }
+        }
+        return false;
+    }  
   
 
 // print 
@@ -232,10 +246,10 @@ public class LL {
     public static void main(String[] args) {
         LL ll=new LL();
         
-        ll.addfirst(2);
-        ll.addfirst(1);
-        ll.addlast(2);
-        ll.addlast(1);  
+        // ll.addfirst(2);
+        // ll.addfirst(1);
+        // ll.addlast(2);
+        // ll.addlast(1);  
         //ll.addmiddle(8, 4);
         //ll.print();
         //ll.removefirst();
@@ -245,10 +259,43 @@ public class LL {
         // System.out.println(ll.size);
         // System.out.println(ll.recsearch(4));
         //ll.reverse();
-        ll.print();
-        //ll.removefromlast(3);
-         System.out.println(ll.isPalindrome(head));
-       
-        
+        // ll.print();
+        // //ll.removefromlast(3);
+        //  System.out.println(ll.isPalindrome(head));
+         head =new node(1);
+         node temp=new node(2);
+         head.next=temp; 
+         head.next.next=new node(3);
+         head.next.next.next=temp;
+         //head.next.next.next.next=head;
+         System.out.println(iscycle());
+         removecycle();
+        System.out.println(iscycle());
     }
+
+
+// remove cycle from ll
+public static void removecycle(){
+    node slow=head;
+    node fast=head;
+    boolean cycle=false;
+    while(fast!=null && fast.next!=null){
+        slow=slow.next;
+        fast=fast.next.next;
+        if(slow==fast){
+            cycle= true;
+        }
+    }
+    if(cycle== false){
+        return;
+    }
+     slow=head;
+     node prev=null;
+     while(slow!=fast){
+        prev=fast;
+        slow=slow.next;
+        fast=fast.next;
+     }
+     prev.next=null;
+     }
 }
