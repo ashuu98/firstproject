@@ -170,10 +170,10 @@ public class LL {
     }
 
     //mid of the array list
-   public node mid(node head){
+   public node findmid(node head){
 // slow and fast pointer;
     node slow=head;
-    node fast=head;
+    node fast=head.next;
     while(fast!=null && fast.next!=null){
         slow=slow.next;
         fast=fast.next.next;
@@ -187,7 +187,7 @@ public class LL {
             return true;
         }
         //middle
-        node middle=mid(head);
+        node middle=findmid(head);
 
         // reversing the second half
         node prev=null;
@@ -262,15 +262,13 @@ public class LL {
         // ll.print();
         // //ll.removefromlast(3);
         //  System.out.println(ll.isPalindrome(head));
-         head =new node(1);
-         node temp=new node(2);
-         head.next=temp; 
-         head.next.next=new node(3);
-         head.next.next.next=temp;
-         //head.next.next.next.next=head;
-         System.out.println(iscycle());
-         removecycle();
-        System.out.println(iscycle());
+         ll.addfirst(7);
+         ll.addfirst(77);
+         ll.addfirst(4);
+         ll.addfirst(10);
+         ll.print();
+          ll.head=ll.mergesort(ll.head);
+         ll.print();
     }
 
 
@@ -298,4 +296,55 @@ public static void removecycle(){
      }
      prev.next=null;
      }
+
+
+     // mergesort
+     public node mergesort(node haed){
+        //base con
+        if(head==null || head.next==null){
+            return head;
+        }
+        // fimd mid
+          node middle=findmid(head);
+        // divide into teo halfs
+           node righthead=middle.next;
+           middle.next=null;
+           // recursive call
+           node left= mergesort(head);
+            node right=mergesort(righthead);
+        // merge
+        return merge(head,right);
+     }
+ // merge function
+     public node merge (node head1,node head2){
+         node mergell=new node(-1);
+         node temp=mergell;
+        
+         while(head1!=null && head2!=null){
+            if(head1.data<=head2.data){
+                temp.next=head1;
+                head1=head1.next;
+
+            }
+            else{
+                temp.next=head2;
+                head2=head2.next;
+                
+            }
+            temp=temp.next;
+         }
+         while(head1!=null){
+            temp.next=head1;
+            head1=head1.next;
+            temp=temp.next;
+         }
+         while(head2!=null){
+            temp.next=head2;
+            head2=head2.next;
+            temp=temp.next;
+         }
+         return mergell.next;
+     }
 }
+
+
